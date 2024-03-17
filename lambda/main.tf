@@ -2,27 +2,14 @@ provider "aws" {
   region = "us-east-1"
 }
 
-import {
-  to = aws_lambda_function.terraform_lambda_func
-  id = "shceduler"
-}
+module "lambda_python3" {
+  source = "${path.module}/../../task-scheduler/"
 
-resource "aws_lambda_function" "terraform_lambda_func" {
+  function_name = "terraform-aws-lambda-test-python3-from-python3"
+  description   = "Test python3 runtime from python3 environment in terraform-aws-lambda"
+  handler       = "main.lambda_handler"
+  runtime       = "python3.7"
+  timeout       = 5
 
-  vpc_config {
-    subnet_ids         = ["subnet-073a11bb0b7e99abf"]
-    security_group_ids = ["sg-0aa6dd4fa747c9c52"]
-  }
-
-  environment {
-    variables = {
-      DB_HOST = "bar"
-    }
-  }
-
-  function_name    = "shceduler"
-  role             = "arn:aws:iam::531190140983:role/service-role/testFc-role-l1r1aw1v"
-  handler          = "index.lambda_handler"
-  runtime          = "python3.8"
-  source_path      = "${path.module}/../../task-scheduler/"
+  source_path = "${path.module}/../../task-scheduler/"
 }
