@@ -14,13 +14,13 @@ resource "null_resource" "pip_install" {
   }
 
   provisioner "local-exec" {
-    command = "python3 -m pip install -r ${path.module}/../../task-scheduler/requirements.txt -t ${path.module}/../../task-scheduler/layer"
+    command = "python3 -m pip install -r ${path.module}/../../task-scheduler/requirements.txt -t ${path.module}/../../task-scheduler/package/python"
   }
 }
 
 data "archive_file" "layer" {
   type        = "zip"
-  source_dir  = "${path.module}/../../task-scheduler/layer"
+  source_dir  = "${path.module}/../../task-scheduler/package/python"
   output_path = "${path.module}/../../task-scheduler/layer.zip"
   depends_on  = [null_resource.pip_install]
 }
