@@ -6,10 +6,7 @@ import {
   to = aws_lambda_function.terraform_lambda_func
   id = "shceduler"
 }
-import {
-  to = aws_lambda_layer_version.layer
-  id = "test-layer"
-}
+
 
 resource "null_resource" "pip_install" {
   triggers = {
