@@ -11,12 +11,6 @@ import {
   id = "test-layer"
 }
 
-data "archive_file" "zip_the_python_code" {
-  type        = "zip"
-  source_dir  = "${path.module}/../../task-scheduler/"
-  output_path = "${path.module}/../../task-scheduler/scheduler.zip"
-}
-
 resource "null_resource" "pip_install" {
   triggers = {
     shell_hash = "${sha256(file("${path.module}/../../task-scheduler/requirements.txt"))}"
@@ -39,6 +33,12 @@ resource "aws_lambda_layer_version" "layer" {
   filename            = data.archive_file.layer.output_path
   source_code_hash    = data.archive_file.layer.output_base64sha256
   compatible_runtimes = ["python3.9", "python3.8", "python3.7", "python3.6"]
+}
+
+data "archive_file" "zip_the_python_code" {
+  type        = "zip"
+  source_dir  = "${path.module}/../../task-scheduler/"
+  output_path = "${path.module}/../../task-scheduler/scheduler.zip"
 }
 
 resource "aws_lambda_function" "terraform_lambda_func" {
