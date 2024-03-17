@@ -20,6 +20,12 @@ resource "aws_lambda_function" "terraform_lambda_func" {
     security_group_ids = ["sg-0aa6dd4fa747c9c52"]
   }
 
+  environment {
+    variables = {
+      DB_HOST = "bar"
+    }
+  }
+
   filename         = "${path.module}/../../task-scheduler/scheduler.zip"
   function_name    = "shceduler"
   role             = "arn:aws:iam::531190140983:role/service-role/testFc-role-l1r1aw1v"
