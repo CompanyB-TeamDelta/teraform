@@ -14,7 +14,7 @@ resource "null_resource" "pip_install" {
   }
 
   provisioner "local-exec" {
-    command = "python3 -m pip install -r requirements.txt -t ${path.module}/../../task-scheduler/layer"
+    command = "python3 -m pip install -r ${path.module}/../../task-scheduler/requirements.txt -t ${path.module}/../../task-scheduler/layer"
   }
 }
 
