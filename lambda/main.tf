@@ -47,7 +47,8 @@ resource "aws_lambda_function" "terraform_lambda_func" {
 
   environment {
     variables = {
-      DB_HOST = "bar"
+      DB_HOST = "database-1.cdueaecew80a.us-east-1.rds.amazonaws.com"
+      DB_USER = "admin"
     }
   }
 
