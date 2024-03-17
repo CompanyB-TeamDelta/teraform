@@ -20,7 +20,7 @@ resource "null_resource" "pip_install" {
 
 data "archive_file" "layer" {
   type        = "zip"
-  source_dir  = "${path.module}/../../task-scheduler/package/python"
+  source_dir  = "${path.module}/../../task-scheduler/package"
   output_path = "${path.module}/../../task-scheduler/layer.zip"
   depends_on  = [null_resource.pip_install]
 }
