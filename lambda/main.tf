@@ -2,14 +2,63 @@ provider "aws" {
   region = "us-east-1"
 }
 
-module "lambda_python3" {
-  source = "${path.module}/../../task-scheduler/"
+import {
+  to = aws_lambda_function.terraform_lambda_func
+  id = "shceduler"
+}
+import {
+  to = aws_lambda_layer_version.layer
+  id = "test-layer"
+}
 
-  function_name = "terraform-aws-lambda-test-python3-from-python3"
-  description   = "Test python3 runtime from python3 environment in terraform-aws-lambda"
-  handler       = "main.lambda_handler"
-  runtime       = "python3.7"
-  timeout       = 5
+data "archive_file" "zip_the_python_code" {
+  type        = "zip"
+  source_dir  = "${path.module}/../../task-scheduler/"
+  output_path = "${path.module}/../../task-scheduler/scheduler.zip"
+}
 
-  source_path = "${path.module}/../../task-scheduler/"
+resource "null_resource" "pip_install" {
+  triggers = {
+    shell_hash = "${sha256(file("${path.module}/../../task-scheduler/requirements.txt"))}"
+  }
+
+  provisioner "local-exec" {
+    command = "python3 -m pip install -r requirements.txt -t ${path.module}/../../task-scheduler/layer"
+  }
+}
+
+data "archive_file" "layer" {
+  type        = "zip"
+  source_dir  = "${path.module}/../../task-scheduler/layer"
+  output_path = "${path.module}/../../task-scheduler/layer.zip"
+  depends_on  = [null_resource.pip_install]
+}
+
+resource "aws_lambda_layer_version" "layer" {
+  layer_name          = "test-layer"
+  filename            = data.archive_file.layer.output_path
+  source_code_hash    = data.archive_file.layer.output_base64sha256
+  compatible_runtimes = ["python3.9", "python3.8", "python3.7", "python3.6"]
+}
+
+resource "aws_lambda_function" "terraform_lambda_func" {
+
+  vpc_config {
+    subnet_ids         = ["subnet-073a11bb0b7e99abf"]
+    security_group_ids = ["sg-0aa6dd4fa747c9c52"]
+  }
+
+  environment {
+    variables = {
+      DB_HOST = "bar"
+    }
+  }
+
+  filename         = "${path.module}/../../task-scheduler/scheduler.zip"
+  function_name    = "shceduler"
+  role             = "arn:aws:iam::531190140983:role/service-role/testFc-role-l1r1aw1v"
+  handler          = "index.lambda_handler"
+  runtime          = "python3.8"
+  source_code_hash = data.archive_file.zip_the_python_code.output_base64sha256
+  layers           = [aws_lambda_layer_version.layer.arn]
 }
