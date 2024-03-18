@@ -7,6 +7,10 @@ import {
   id = "shceduler"
 }
 
+variable "mssql_pwd" {
+  type      = string
+  sensitive = true
+}
 
 resource "null_resource" "pip_install" {
   triggers = {
@@ -47,8 +51,10 @@ resource "aws_lambda_function" "terraform_lambda_func" {
 
   environment {
     variables = {
-      DB_HOST = "database-1.cdueaecew80a.us-east-1.rds.amazonaws.com"
-      DB_USER = "admin"
+      DB_HOST     = "database-1.cdueaecew80a.us-east-1.rds.amazonaws.com"
+      DB_USER     = "admin"
+      DB_PASSWORD = var.mssql_pwd
+      DB_NAME     = "telegramDB"
     }
   }
 
