@@ -7,8 +7,4 @@ resource "aws_instance" "server" {
   instance_type = "t2.micro"
   subnet_id = "vpc-0bba69cece42aa727"
   key_name = "split-keys"
-  user_data = <<EOF
-#!/bin/bash
-
-EOF
 }
