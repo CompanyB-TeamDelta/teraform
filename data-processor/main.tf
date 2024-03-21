@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_instance" "server" {
 
-    provisioner "file" {
+  provisioner "file" {
       source      = "data-processor.tar"
       destination = "/home/ec2-user/data-processor.tar"
   }
