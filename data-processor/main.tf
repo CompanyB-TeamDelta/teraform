@@ -11,23 +11,12 @@ terraform{
 
 resource "aws_instance" "server" {
 
-  provisioner "file" {
-      source      = "data-processor.tar"
-      destination = "/home/ec2-user/data-processor.tar"
-      connection {
-        type        = "ssh"
-        user        = "ec2-user"  
-        private_key = file("key.pem")
-        host        = self.public_ip
-    }
-  }
-
   ami           = "ami-0d7a109bf30624c99"
   instance_type = "t2.micro"
   subnet_id     = "subnet-073a11bb0b7e99abf"
   key_name      = "split-keys"
   user_data     = <<EOF
 #!/bin/bash
-
+scp -i key.pem data-processor.tar ec2-user@ec2-3-90-110-214.compute-1.amazonaws.com
 EOF
 }
