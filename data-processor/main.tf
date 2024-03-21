@@ -14,6 +14,12 @@ resource "aws_instance" "server" {
   provisioner "file" {
       source      = "data-processor.tar"
       destination = "/home/ec2-user/data-processor.tar"
+      connection {
+        type        = "ssh"
+        user        = "ec2-user"  
+        private_key = file("key.pem")
+        host        = self.public_ip
+    }
   }
 
   ami           = "ami-0d7a109bf30624c99"
