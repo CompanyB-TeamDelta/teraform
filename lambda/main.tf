@@ -2,10 +2,11 @@ provider "aws" {
   region = "us-east-1"
 }
 
-import {
-  to = aws_lambda_function.terraform_lambda_func
-  id = "shceduler"
-}
+backend "s3" {
+    bucket                  = "terraform-s3-state-hwnaukma2024"
+    key                     = "proj"
+    region                  = "us-east-1"
+  }
 
 variable "mssql_pwd" {
   type      = string
