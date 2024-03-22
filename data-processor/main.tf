@@ -18,5 +18,6 @@ resource "aws_instance" "server" {
   user_data     = <<EOF
 #!/bin/bash
 scp -i key.pem data-processor.tar ec2-user@ec2-3-90-110-214.compute-1.amazonaws.com
+scp -i key.pem telegram-management.tar ec2-user@ec2-3-90-110-214.compute-1.amazonaws.com
 EOF
 }
