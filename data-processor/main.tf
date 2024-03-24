@@ -24,6 +24,11 @@ resource "aws_vpc" "CustomVPC" {
            }
 }
 
+resource "aws_internet_gateway" "igw" { 
+vpc_id = aws_vpc.CustomVPC.id
+tags = { Name = "IGW" } 
+}
+
 
 resource "aws_security_group" "ec2_sg" {
   name        = "split"
