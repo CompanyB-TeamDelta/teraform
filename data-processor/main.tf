@@ -15,7 +15,7 @@ resource "aws_vpc" "CustomVPC" {
 resource "aws_security_group" "ec2_sg" {
   name        = "split"
   description = "Allow http inbound traffic"
-  vpc_id      = data.aws_vpc.GetVPC.id
+  vpc_id      = aws_vpc.CustomVPC.id
 
   ingress {
     from_port   = 443
