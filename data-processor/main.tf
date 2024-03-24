@@ -14,6 +14,8 @@ resource "aws_subnet" "PublicSubnet1" {
   }
 }
 
+
+
 resource "aws_vpc" "CustomVPC" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_support   = true
@@ -88,6 +90,11 @@ resource "aws_route_table" "PublicRouteTable" {
   tags = {
     Name = "PublicRouteTable"
   }
+}
+
+resource "aws_route_table_association" "PublicSubnetRouteTableAssociation1" {
+  subnet_id      = aws_subnet.PublicSubnet1.id
+  route_table_id = aws_route_table.PublicRouteTable.id
 }
 
 terraform{
