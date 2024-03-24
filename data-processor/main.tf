@@ -64,6 +64,7 @@ resource "aws_instance" "server" {
   instance_type = "t2.micro"
   subnet_id     = "subnet-073a11bb0b7e99abf"
   key_name      = "split-keys"
+  security_groups = [aws_security_group.ec2_sg.id]
   user_data     = <<EOF
 #!/bin/bash
 scp -i key.pem data-processor.tar ec2-user@ec2-3-90-110-214.compute-1.amazonaws.com
