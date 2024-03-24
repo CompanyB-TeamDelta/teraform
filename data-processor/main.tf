@@ -2,6 +2,18 @@ provider "aws" {
   region = "us-east-1"
 }
 
+resource "aws_subnet" "PublicSubnet1" {
+  vpc_id     = aws_vpc.CustomVPC.id
+  cidr_block = "10.0.0.0/18"
+  availability_zone = "us-east-1b"
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "PublicSubnet1"
+    Type = "Public"
+  }
+}
+
 resource "aws_vpc" "CustomVPC" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_support   = true
@@ -73,7 +85,7 @@ resource "aws_instance" "server" {
 
   ami           = "ami-0d7a109bf30624c99"
   instance_type = "t2.micro"
-  subnet_id     = "subnet-073a11bb0b7e99abf"
+  subnet_id     = aws_subnet.PublicSubnet1.id
   key_name      = "split-keys"
   security_groups = [aws_security_group.ec2_sg.id]
   user_data     = <<EOF
