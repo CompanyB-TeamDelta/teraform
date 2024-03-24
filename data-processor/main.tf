@@ -112,10 +112,21 @@ resource "aws_instance" "server" {
   subnet_id     = aws_subnet.PublicSubnet1.id
   key_name      = "split-keys"
   security_groups = [aws_security_group.ec2_sg.id]
+  provisioner "file" {
+    source      = "data-processor.tar"
+    destination = "data-processor.tar"
+
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"  # Or your AMI's default user
+      private_key = file("${key.pem}")
+      host        = self.public_ip
+    }
+  }
   user_data     = <<EOF
 #!/bin/bash
-scp -i key.pem data-processor.tar ec2-user@ec2-3-90-110-214.compute-1.amazonaws.com
-scp -i key.pem telegram-management.tar ec2-user@ec2-3-90-110-214.compute-1.amazonaws.com
+scp -i key.pem data-processor.tar ec2-user@ec2-3-90-110-214.compute-1.amazonaws.com:/~
+scp -i key.pem telegram-management.tar ec2-user@ec2-3-90-110-214.compute-1.amazonaws.com:/~
 ssh -i key.pem ec2-user@ec2-54-204-100-254.compute-1.amazonaws.com
 sudo yum install docker -y
 sudo systemctl start docker
