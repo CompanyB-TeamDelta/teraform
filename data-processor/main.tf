@@ -141,7 +141,7 @@ sudo systemctl start docker
 sudo systemctl enable docker
 sudo docker load < data-processor.tar
 sudo docker load < telegram-management.tar
-sudo docker run -d -p 8080:8080 --name data-processor
-sudo docker run -d -p 8088:8080 --name telegram-management
+sudo docker run -d -p 8080:8080 --name data-processor data-processor
+sudo docker run -d -p 8088:8080 --name telegram-management telegram-management
 EOF
 }
