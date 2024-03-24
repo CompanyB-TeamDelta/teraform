@@ -145,5 +145,11 @@ resource "aws_instance" "server" {
       "sudo docker run -d -p 8080:8080 --name data-processor data-processor",
       "sudo docker run -d -p 8088:8080 --name telegram-management telegram-management",
     ]
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"  # Or your AMI's default user
+      private_key = file("key.pem")
+      host        = self.public_ip
+    }
   }
 }
