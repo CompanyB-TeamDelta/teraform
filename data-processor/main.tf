@@ -2,6 +2,16 @@ provider "aws" {
   region = "us-east-1"
 }
 
+resource "aws_vpc" "CustomVPC" {
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+
+  tags = {
+    Name = "CustomVPC"
+           }
+}
+
+
 resource "aws_security_group" "ec2_sg" {
   name        = "split"
   description = "Allow http inbound traffic"
