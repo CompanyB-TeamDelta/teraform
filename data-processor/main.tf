@@ -119,7 +119,7 @@ resource "aws_instance" "server" {
     connection {
       type        = "ssh"
       user        = "ec2-user"  # Or your AMI's default user
-      private_key = file("${key.pem}")
+      private_key = file("key.pem")
       host        = self.public_ip
     }
   }
