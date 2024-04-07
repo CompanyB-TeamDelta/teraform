@@ -5,7 +5,7 @@ WORKDIR /app
 ADD . /app
 
 RUN ls -a
-RUN ls .
+RUN ls ./app
 
 RUN pip install --no-cache-dir -r ./app/requirements.txt
 
