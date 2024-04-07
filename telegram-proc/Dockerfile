@@ -1,6 +1,7 @@
 FROM python:3.9-slim
 RUN ls -a
 WORKDIR /app
+RUN ls -a
 
 ADD . /app
 
