@@ -131,7 +131,7 @@ resource "aws_instance" "server" {
       "sudo systemctl start docker",
       "sudo systemctl enable docker",
       "sudo docker load < tg-proc.tar",
-      "sudo docker run -d -p 8080:8080 --name data-processor tg-proc",
+      "sudo docker run -d -p 8080:8080 --name tg-proc tg-proc",
     ]
     connection {
       type        = "ssh"
