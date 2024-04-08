@@ -112,6 +112,11 @@ resource "aws_instance" "server" {
   subnet_id     = aws_subnet.PublicSubnet1.id
   key_name      = "split-keys"
   security_groups = [aws_security_group.ec2_sg.id]
+
+  tags = {
+    Name = "dataproc"
+  }
+
   provisioner "file" {
     source      = "telegram-management.tar"
     destination = "telegram-management.tar"
