@@ -113,6 +113,10 @@ resource "aws_instance" "server" {
   key_name      = "split-keys"
   security_groups = [aws_security_group.ec2_sg.id]
 
+  tags = {
+    Name = "telegram-proc"
+  }
+
   provisioner "file" {
     source      = "tg-proc.tar"
     destination = "tg-proc.tar"
