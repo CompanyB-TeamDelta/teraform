@@ -100,7 +100,7 @@ resource "aws_route_table_association" "PublicSubnetRouteTableAssociation1" {
 terraform{
   backend "s3" {
       bucket                  = "terraform-s3-state-hwnaukma2024"
-      key                     = "telegram"
+      key                     = "proj"
       region                  = "us-east-1"
     }
 }
