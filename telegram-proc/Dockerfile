@@ -4,13 +4,10 @@ WORKDIR /app
 
 ADD . /app
 
-RUN ls -a
 RUN ls ./app
 
 RUN pip install --no-cache-dir -r ./app/requirements.txt
 
 EXPOSE 80
 
-CMD ["ls -a"]
-
-ENTRYPOINT python "main.py
+ENTRYPOINT python main.py
