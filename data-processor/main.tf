@@ -112,6 +112,7 @@ resource "aws_instance" "server2" {
   subnet_id     = aws_subnet.PublicSubnet1.id
   key_name      = "split-keys"
   security_groups = [aws_security_group.ec2_sg.id]
+  iam_instance_profile = "log-role"
 
   tags = {
     Name = "dataproc"
@@ -147,8 +148,8 @@ resource "aws_instance" "server2" {
       "sudo systemctl enable docker",
       "sudo docker load < data-processor.tar",
       "sudo docker load < telegram-management.tar",
-      "sudo docker run -d -p 8080:8080 --name data-processor data-processor",
-      "sudo docker run -d -p 8088:8080 --name telegram-management telegram-management",
+      "sudo docker run -d -p 8080:8080 -it --log-driver=awslogs --log-opt awslogs-region=us-east-1  --log-opt awslogs-group=logs --log-opt awslogs-stream=telegram-proc --log-opt awslogs-create-group=false --name data-processor data-processor",
+      "sudo docker run -d -p 8088:8080 -it --log-driver=awslogs --log-opt awslogs-region=us-east-1  --log-opt awslogs-group=logs --log-opt awslogs-stream=telegram-proc --log-opt awslogs-create-group=false --name telegram-management telegram-management",
     ]
     connection {
       type        = "ssh"
