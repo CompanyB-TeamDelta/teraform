@@ -9,4 +9,4 @@ RUN pip install --no-cache-dir -r ./app/requirements.txt
 
 EXPOSE 80
 
-ENTRYPOINT python ./app/main.py
+ENTRYPOINT exec python ./app/main.py
