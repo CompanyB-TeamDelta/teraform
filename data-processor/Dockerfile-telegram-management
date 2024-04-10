@@ -1,5 +1,8 @@
 FROM openjdk:17-oracle
 
 ADD telegram-mgmt-0.0.1-SNAPSHOT.jar app.jar
+ADD ./lib /lib
 
-ENTRYPOINT exec java -jar /app.jar
+RUN ls /lib
+
+ENTRYPOINT exec java -Djava.library.path=./lib/linux_x64/ -jar /app.jar
