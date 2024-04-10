@@ -11,4 +11,6 @@ RUN pip install --no-cache-dir -r ./app/requirements.txt
 
 EXPOSE 80
 
-CMD ["python", "main.py"]
+CMD ["ls -a"]
+
+ENTRYPOINT python "main.py
