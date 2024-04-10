@@ -10,6 +10,11 @@ terraform{
     }
 }
 
+resource "aws_iam_instance_profile" "example_profile" {
+  name = "example_profile"
+  role = "log-role"
+}
+
 resource "aws_instance" "server" {
 
   ami           = "ami-0d7a109bf30624c99"
@@ -17,7 +22,7 @@ resource "aws_instance" "server" {
   subnet_id     = "subnet-0c75f7a440c143dc5"
   key_name      = "split-keys"
   security_groups = ["sg-0c41e577818bc0a08"]
-
+  iam_instance_profile = aws_iam_instance_profile.example_profile.name
   tags = {
     Name = "telegram-proc"
   }
@@ -40,7 +45,7 @@ resource "aws_instance" "server" {
       "sudo systemctl start docker",
       "sudo systemctl enable docker",
       "sudo docker load < tg-proc.tar",
-      "sudo docker run -d -p 8080:8080 --name tg-proc tg-proc",
+      "docker run -d -it --log-driver=awslogs --log-opt awslogs-region=us-east-1  --log-opt awslogs-group=logs --log-opt awslogs-stream=telegram-proc --log-opt awslogs-create-group=false --name tg-proc tg-proc",
     ]
     connection {
       type        = "ssh"
