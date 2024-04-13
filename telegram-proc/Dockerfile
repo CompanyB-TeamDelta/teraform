@@ -3,7 +3,7 @@ RUN ls -a
 
 ADD ./app /app
 
-RUN ls ./app
+RUN ls ./app/tmp
 
 RUN pip install --no-cache-dir -r ./app/requirements.txt
 
