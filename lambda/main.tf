@@ -16,10 +16,6 @@ variable "mssql_pwd" {
 }
 
 resource "null_resource" "pip_install" {
-  triggers = {
-    shell_hash = "${sha256(file("${path.module}/../../task-scheduler/requirements.txt"))}"
-  }
-
   provisioner "local-exec" {
     command = "python3 -m pip install -r ${path.module}/../../task-scheduler/requirements.txt -t ${path.module}/../../task-scheduler/package/python"
   }
