@@ -5,7 +5,7 @@ provider "aws" {
 terraform{
   backend "s3" {
       bucket                  = "terraform-s3-state-hwnaukma2024"
-      key                     = "proj"
+      key                     = "lambda"
       region                  = "us-east-1"
     }
 }
