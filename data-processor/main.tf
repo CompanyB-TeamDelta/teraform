@@ -2,6 +2,14 @@ provider "aws" {
   region = "us-east-1"
 }
 
+terraform{
+  backend "s3" {
+      bucket                  = "terraform-s3-state-hwnaukma2024"
+      key                     = "proj"
+      region                  = "us-east-1"
+    }
+}
+
 resource "aws_subnet" "PublicSubnet1" {
   vpc_id     = aws_vpc.CustomVPC.id
   cidr_block = "10.0.0.0/18"
@@ -95,14 +103,6 @@ resource "aws_route_table" "PublicRouteTable" {
 resource "aws_route_table_association" "PublicSubnetRouteTableAssociation1" {
   subnet_id      = aws_subnet.PublicSubnet1.id
   route_table_id = aws_route_table.PublicRouteTable.id
-}
-
-terraform{
-  backend "s3" {
-      bucket                  = "terraform-s3-state-hwnaukma2024"
-      key                     = "proj"
-      region                  = "us-east-1"
-    }
 }
 
 resource "aws_instance" "server2" {
