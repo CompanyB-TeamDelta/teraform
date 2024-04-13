@@ -2,11 +2,11 @@ provider "aws" {
   region = "us-east-1"
 }
 
-terraform{
+terraform {
   backend "s3" {
-      bucket                  = "terraform-s3-state-hwnaukma2024"
-      key                     = "lambda"
-      region                  = "us-east-1"
+    bucket                  = "terraform-s3-state-hwnaukma2024"
+    key                     = "lambda"
+    region                  = "us-east-1"
     }
 }
 
