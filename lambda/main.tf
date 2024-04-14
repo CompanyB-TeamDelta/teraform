@@ -60,7 +60,7 @@ resource "aws_lambda_function" "terraform_lambda_func" {
       DB_NAME            = "telegramDB"
     }
   }
-  timeout = 15
+  timeout = 8
   filename         = "${path.module}/../../task-scheduler/scheduler.zip"
   function_name    = "shceduler"
   role             = "arn:aws:iam::531190140983:role/service-role/testFc-role-l1r1aw1v"
