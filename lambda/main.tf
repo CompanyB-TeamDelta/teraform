@@ -46,11 +46,6 @@ data "archive_file" "zip_the_python_code" {
 
 resource "aws_lambda_function" "terraform_lambda_func" {
 
-  vpc_config {
-    subnet_ids         = ["subnet-073a11bb0b7e99abf"]
-    security_group_ids = ["sg-0aa6dd4fa747c9c52"]
-  }
-
   environment {
     variables = {
       DB_HOST            = "database-1.cdueaecew80a.us-east-1.rds.amazonaws.com"
