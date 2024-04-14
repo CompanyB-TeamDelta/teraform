@@ -53,10 +53,11 @@ resource "aws_lambda_function" "terraform_lambda_func" {
 
   environment {
     variables = {
-      DB_HOST     = "database-1.cdueaecew80a.us-east-1.rds.amazonaws.com"
-      DB_USER     = "admin"
-      DB_PASSWORD = var.mssql_pwd
-      DB_NAME     = "telegramDB"
+      DB_HOST            = "database-1.cdueaecew80a.us-east-1.rds.amazonaws.com"
+      DB_USER            = "admin"
+      DB_PASSWORD        = var.mssql_pwd
+      FETCHING_QUEUE_URL = "https://sqs.us-east-1.amazonaws.com/531190140983/main_test"
+      DB_NAME            = "telegramDB"
     }
   }
 
