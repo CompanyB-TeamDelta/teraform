@@ -30,7 +30,11 @@ assuming terrafrom was set-up (to even get to this repo).
 3. **IAM Roles:**
    - Navigate to IAM and create an instance role named `log-role` with the necessary permissions (`fullsqs`, `sts:assumeRole`, `cloudwatchFull`).
    - Create a role for Terraform with administrative permissions for simplicity.
-
+     
+3. **RDS:**
+   - Create free tier RDS instance with the public access and get it's credentials
+  
+     
 ### SQS Configuration
 
 1. **Create SQS Queues:**
