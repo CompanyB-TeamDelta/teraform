@@ -34,6 +34,17 @@ resource "aws_instance" "server" {
       host        = self.public_ip
     }
   }
+  provisioner "file" {
+      source      = "tg-proc2.tar"
+      destination = "tg-proc2.tar"
+  
+      connection {
+        type        = "ssh"
+        user        = "ec2-user"  # Or your AMI's default user
+        private_key = file("key.pem")
+        host        = self.public_ip
+      }
+    }
 
   provisioner "remote-exec" {
     inline = [
