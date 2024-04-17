@@ -52,7 +52,7 @@ resource "aws_instance" "server" {
       "sudo systemctl start docker",
       "sudo systemctl enable docker",
       "sudo docker load < tg-proc.tar",
-      "sudo docker load < tg-proc.tar2",
+      "sudo docker load < tg-proc2.tar",
       "sudo docker run -d -it --log-driver=awslogs --log-opt awslogs-region=us-east-1  --log-opt awslogs-group=logs --log-opt awslogs-stream=telegram-proc --log-opt awslogs-create-group=false --name tg-proc tg-proc",
       "sudo docker run -d -it --log-driver=awslogs --log-opt awslogs-region=us-east-1  --log-opt awslogs-group=logs --log-opt awslogs-stream=telegram-proc --log-opt awslogs-create-group=false --name tg-proc2 tg-proc2",
     ]
