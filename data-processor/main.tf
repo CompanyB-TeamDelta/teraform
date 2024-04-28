@@ -108,7 +108,7 @@ resource "aws_route_table_association" "PublicSubnetRouteTableAssociation1" {
 resource "aws_instance" "server2" {
 
   ami           = "ami-0d7a109bf30624c99"
-  instance_type = "t2.medium"
+  instance_type = "t2.micro"
   subnet_id     = aws_subnet.PublicSubnet1.id
   key_name      = "split-keys"
   security_groups = [aws_security_group.ec2_sg.id]
