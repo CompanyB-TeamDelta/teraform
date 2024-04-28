@@ -14,7 +14,7 @@ terraform{
 resource "aws_instance" "server" {
 
   ami           = "ami-0d7a109bf30624c99"
-  instance_type = "t2.micro"
+  instance_type = "t2.medium"
   subnet_id     = "subnet-0c75f7a440c143dc5"
   key_name      = "split-keys"
   security_groups = ["sg-0c41e577818bc0a08"]
